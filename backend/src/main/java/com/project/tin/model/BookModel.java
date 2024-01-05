@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.springframework.context.annotation.Primary;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -25,4 +26,10 @@ public class BookModel {
     private String PublicationDate;
     @Column(name = "NumberOfPages")
     private int NumberOfPages;
+    @ManyToMany
+    @JoinTable(
+            name = "BookAuthors",
+            joinColumns = @JoinColumn(name = "BookId"),
+            inverseJoinColumns = @JoinColumn(name = "AuthorId"))
+    private List<AuthorModel> Authors;
 }

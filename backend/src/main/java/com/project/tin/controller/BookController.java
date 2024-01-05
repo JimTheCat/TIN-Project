@@ -1,5 +1,6 @@
 package com.project.tin.controller;
 
+import com.project.tin.dto.AuthorDTO;
 import com.project.tin.dto.BookDTO;
 import com.project.tin.service.impl.BookServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +23,10 @@ public class BookController {
     public ResponseEntity<List<BookDTO>> getAllBooks() {
         System.out.println("getAllBooks");
         return ResponseEntity.ok(bookService.getAllBooks());
+    }
+
+    @GetMapping(value = "/getBookById", params = "bookId")
+    public ResponseEntity<BookDTO> getBookById(Long bookId) {
+        return ResponseEntity.ok(bookService.getBookById(bookId));
     }
 }

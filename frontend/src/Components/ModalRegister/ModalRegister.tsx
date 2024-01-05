@@ -1,11 +1,14 @@
 import {Button, Modal, PasswordInput, Stack, TextInput} from "@mantine/core";
 import {Register} from "../../Services/AuthService";
 import {useDisclosure} from "@mantine/hooks";
-import useSignIn from "react-auth-kit/hooks/useSignIn";
 import {useForm} from "@mantine/form";
 import {RegisterDTO} from "../../Services/DTOs/AuthDTO";
+import {useSignIn} from "react-auth-kit";
+import {useTranslation} from "react-i18next";
 
 export const ModalRegister = () => {
+  const {t} = useTranslation("modalRegister");
+
   const [opened, {open, close}] = useDisclosure(false);
   const signIn = useSignIn();
 
@@ -19,14 +22,14 @@ export const ModalRegister = () => {
     } as RegisterDTO,
 
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : t('modal.email.error')),
     }
   });
 
 
   return (
     <>
-      <Modal opened={opened} onClose={close} title="Log in form">
+      <Modal opened={opened} onClose={close} title={t('modal.title')}>
         <form onSubmit={form.onSubmit((values) => {
           Register(values).then((value) => {
             if (value && value.status === 200) {
@@ -34,60 +37,63 @@ export const ModalRegister = () => {
                 token: value.data.token,
                 expiresIn: 60 * 60 * 24 * 3,
                 tokenType: "Bearer",
-                authState: { username: values.username },
+                authState: { name: values.username , role: value.data.role },
               });
               close();
             }
+
+            if (value && value.status === 401) {
+              form.setFieldError("username", value.data);
+            }
           });
-          // window.location.reload();
         })}>
           <Stack justify={"center"} spacing={"lg"}>
             <TextInput
               withAsterisk
               required
-              label="Username"
-              placeholder="Enter your username"
+              label={t('modal.username.label')}
+              placeholder={t('modal.username.placeholder')}
               {...form.getInputProps("username")}
             />
 
             <PasswordInput
               withAsterisk
               required
-              label="Password"
-              placeholder="Enter your password"
+              label={t('modal.password.label')}
+              placeholder={t('modal.password.placeholder')}
               {...form.getInputProps("password")}
             />
 
             <TextInput
               withAsterisk
               required
-              label="Email"
-              placeholder="Enter your email"
+              label={t('modal.email.label')}
+              placeholder={t('modal.email.placeholder')}
               {...form.getInputProps("email")}
             />
 
             <TextInput
               withAsterisk
               required
-              label="First name"
-              placeholder="Enter your first name"
+              label={t('modal.first.label')}
+              placeholder={t('modal.first.placeholder')}
               {...form.getInputProps("firstName")}
             />
 
             <TextInput
               withAsterisk
               required
-              label="Last name"
-              placeholder="Enter your last name"
+              label={t('modal.last.label')}
+              placeholder={t('modal.last.placeholder')}
               {...form.getInputProps("lastName")}
             />
 
-            <Button type="submit">Submit</Button>
+            <Button type="submit">{t('modal.submit')}</Button>
           </Stack>
         </form>
       </Modal>
 
-      <Button onClick={open}>Register</Button>
+      <Button onClick={open}>{t('button')}</Button>
     </>
   );
 }

@@ -5,6 +5,7 @@ export type LogInDTO = {
 
 export type TokenDTO = {
   token: string;
+  role: string;
 }
 
 export type RegisterDTO = {

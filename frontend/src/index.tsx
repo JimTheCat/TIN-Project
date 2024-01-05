@@ -4,7 +4,12 @@ import './index.css';
 import App from './Pages/App';
 import reportWebVitals from './reportWebVitals';
 import {ThemeProvider} from "./Providers/ThemeProvider";
-import AuthProvider from "react-auth-kit/AuthProvider";
+import {AuthProvider} from "react-auth-kit";
+import {I18nextProvider} from "react-i18next";
+import i18next from "i18next";
+import {i18nInitializer} from "./Services/i18nInitializer";
+
+i18nInitializer();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,7 +24,9 @@ root.render(
 
     >
       <ThemeProvider>
-        <App/>
+        <I18nextProvider i18n={i18next}>
+          <App/>
+        </I18nextProvider>
       </ThemeProvider>
     </AuthProvider>
   </React.StrictMode>

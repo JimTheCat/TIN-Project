@@ -1,5 +1,6 @@
 package com.project.tin.service.impl;
 
+import com.project.tin.dto.AuthorDTO;
 import com.project.tin.dto.BookDTO;
 import com.project.tin.model.BookModel;
 import com.project.tin.repository.BookRepository;
@@ -24,6 +25,7 @@ public class BookServiceImpl implements BookService {
         List<BookDTO> bookDTOList = new ArrayList<>();
         List<BookModel> bookRepositoryAll = bookRepository.findAll();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        List<AuthorDTO> authorDTOList = new ArrayList<>();
 
         // convert BookModel to BookDTO
         bookRepositoryAll.forEach(bookModel -> {
@@ -34,9 +36,40 @@ public class BookServiceImpl implements BookService {
             bookDTO.setPublisher(bookModel.getPublisher());
             bookDTO.setPublicationDate(LocalDate.parse(bookModel.getPublicationDate(), formatter));
             bookDTO.setNumberOfPages(bookModel.getNumberOfPages());
+
+            bookModel.getAuthors().forEach(authorModel -> {
+                AuthorDTO authorDTO = new AuthorDTO();
+                authorDTO.setAuthorId(authorModel.getAuthorId());
+                authorDTO.setName(authorModel.getName());
+                authorDTO.setBirthYear(authorModel.getBirthYear());
+                authorDTO.setNationality(authorModel.getNationality());
+
+                authorDTOList.add(authorDTO);
+            });
+            bookDTO.setAuthors(authorDTOList);
+
             bookDTOList.add(bookDTO);
         });
 
         return bookDTOList;
+    }
+
+    @Override
+    public BookDTO getBookById(Long id) {
+        BookModel bookModel = bookRepository.findById(id).orElse(null);
+        if (bookModel == null) return null;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // convert BookModel to BookDTO
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setBookId(bookModel.getBookId());
+        bookDTO.setName(bookModel.getName());
+        bookDTO.setDescription(bookModel.getDescription());
+        bookDTO.setPublisher(bookModel.getPublisher());
+        bookDTO.setPublicationDate(LocalDate.parse(bookModel.getPublicationDate(), formatter));
+        bookDTO.setNumberOfPages(bookModel.getNumberOfPages());
+
+        return bookDTO;
     }
 }

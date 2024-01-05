@@ -1,15 +1,16 @@
-import {Button, Card, Center, Grid, Group, Pagination, Title} from "@mantine/core";
+import {ActionIcon, Button, Card, Grid, Group, Pagination, Text, Title} from "@mantine/core";
 import {
   IconArrowBarToRight,
   IconArrowBarToLeft,
   IconArrowLeft,
   IconArrowRight,
-  IconGripHorizontal,
+  IconGripHorizontal, IconSettings,
 } from '@tabler/icons-react';
 import {useEffect, useRef, useState} from "react";
 import {BookDTO} from "../../Services/DTOs/BookDTO";
-import {BookService} from "../../Services/BookService";
-import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import {GetAllBooksService} from "../../Services/BookService";
+import {useIsAuthenticated, useAuthUser} from "react-auth-kit";
+import {ModalMoreInformation} from "../ModalMoreInformation";
 
 export const BookCard = () => {
 
@@ -18,14 +19,15 @@ export const BookCard = () => {
   const [activePage, setActivePage] = useState<number>(1);
   const AMOUNT_OF_BOOKS_PER_PAGE = 6.0;
   const isAuth = useIsAuthenticated();
+  const authUser = useAuthUser();
+  const [isUserAdmin, setIsUserAdmin] = useState<boolean>(authUser()!.role === "ADMIN");
 
 
   useEffect(() => {
-    const abortController = new AbortController();
 
     // logic here
-    if(isAuth().valueOf()) {
-      BookService(abortController).then((response) => {
+    if (isAuth()) {
+      GetAllBooksService().then((response) => {
         if (response) {
           setBooks(response.data);
           setCountPages(Math.ceil(response.data.length / AMOUNT_OF_BOOKS_PER_PAGE));
@@ -33,50 +35,50 @@ export const BookCard = () => {
       });
     }
 
-    // cleanup
-    return () => {
-      abortController.abort();
-    }
-  }, []);
+  }, [isAuth()]);
 
   return (
-    <>{ useIsAuthenticated() && books &&
-      <Center>
-        <Card shadow={"sm"} padding={"md"} radius={"md"} w={"fit-content"}>
-          <Title order={3}>Dostępne książki</Title>
-
-          <Grid columns={2} m={"xs"}>
-            {
-              books?.slice((activePage - 1) * AMOUNT_OF_BOOKS_PER_PAGE, AMOUNT_OF_BOOKS_PER_PAGE * activePage).map((book, k) => {
-                return (
-                  <Grid.Col span={1} key={k}>
-                    <Card withBorder>
-                      <Title order={4}>{book.title}</Title>
-                      <Title order={5}>{book.publisher}</Title>
-                      <Title order={6}>{book.description}</Title>
-                      <Button>Reserve</Button>
-                    </Card>
-                  </Grid.Col>
-                )
-              })
-            }
-
-          </Grid>
+    <>{useIsAuthenticated() && books &&
+        <Card shadow={"sm"} mx={"lg"} padding={"xl"} radius={"md"}>
+            <Grid columns={2}>
+                <Grid.Col span={2}>
+                  <Title order={3}>Dostępne książki</Title>
+                </Grid.Col>
+              {
+                books?.slice((activePage - 1) * AMOUNT_OF_BOOKS_PER_PAGE, AMOUNT_OF_BOOKS_PER_PAGE * activePage).map((book, k) => {
+                  return (
+                    <Grid.Col span={1} key={k}>
+                      <Card withBorder>
+                        <Group position={"apart"}>
+                          <Title order={4}>{book.name}</Title>
+                          {isUserAdmin && <ActionIcon>
+                            <IconSettings size={"1.125rem"}/>
+                          </ActionIcon>}
+                        </Group>
+                        <Title order={6}>{book.description}</Title>
+                        <Group position={"apart"} mt={"sm"}>
+                          <ModalMoreInformation bookId={book.bookId}/>
+                          <Button>Reserve</Button>
+                        </Group>
+                      </Card>
+                    </Grid.Col>
+                  )
+                })
+              }
+            </Grid>
 
           {/* Compound pagination */}
-          <Pagination.Root total={countPages} value={activePage} onChange={setActivePage}>
-            <Group spacing={7} position="center" mt="xl">
-              <Pagination.First icon={IconArrowBarToLeft}/>
-              <Pagination.Previous icon={IconArrowLeft}/>
-              <Pagination.Items dotsIcon={IconGripHorizontal}/>
-              <Pagination.Next icon={IconArrowRight}/>
-              <Pagination.Last icon={IconArrowBarToRight}/>
-            </Group>
-          </Pagination.Root>
+            <Pagination.Root total={countPages} value={activePage} onChange={setActivePage}>
+                <Group spacing={7} position="center" mt="xl">
+                    <Pagination.First icon={IconArrowBarToLeft}/>
+                    <Pagination.Previous icon={IconArrowLeft}/>
+                    <Pagination.Items dotsIcon={IconGripHorizontal}/>
+                    <Pagination.Next icon={IconArrowRight}/>
+                    <Pagination.Last icon={IconArrowBarToRight}/>
+                </Group>
+            </Pagination.Root>
 
-        </Card>
-      </Center>}
-
+        </Card>}
     </>
   );
 }
