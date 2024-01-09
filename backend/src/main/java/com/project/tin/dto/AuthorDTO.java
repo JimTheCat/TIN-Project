@@ -8,6 +8,6 @@ import java.time.LocalDate;
 public class AuthorDTO {
     private long AuthorId;
     private String Name;
-    private String BirthYear;
+    private int BirthYear;
     private String Nationality;
 }

@@ -2,6 +2,7 @@ package com.project.tin.service.impl;
 
 import com.project.tin.dto.AuthorDTO;
 import com.project.tin.dto.BookDTO;
+import com.project.tin.dto.CategoryDTO;
 import com.project.tin.model.BookModel;
 import com.project.tin.repository.BookRepository;
 import com.project.tin.service.BookService;
@@ -25,11 +26,12 @@ public class BookServiceImpl implements BookService {
         List<BookDTO> bookDTOList = new ArrayList<>();
         List<BookModel> bookRepositoryAll = bookRepository.findAll();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        List<AuthorDTO> authorDTOList = new ArrayList<>();
 
         // convert BookModel to BookDTO
         bookRepositoryAll.forEach(bookModel -> {
+            List<AuthorDTO> authorDTOList = new ArrayList<>();
             BookDTO bookDTO = new BookDTO();
+
             bookDTO.setBookId(bookModel.getBookId());
             bookDTO.setName(bookModel.getName());
             bookDTO.setDescription(bookModel.getDescription());
@@ -37,7 +39,7 @@ public class BookServiceImpl implements BookService {
             bookDTO.setPublicationDate(LocalDate.parse(bookModel.getPublicationDate(), formatter));
             bookDTO.setNumberOfPages(bookModel.getNumberOfPages());
 
-            bookModel.getAuthors().forEach(authorModel -> {
+            bookModel.getAuthorModel().forEach(authorModel -> {
                 AuthorDTO authorDTO = new AuthorDTO();
                 authorDTO.setAuthorId(authorModel.getAuthorId());
                 authorDTO.setName(authorModel.getName());
@@ -47,6 +49,11 @@ public class BookServiceImpl implements BookService {
                 authorDTOList.add(authorDTO);
             });
             bookDTO.setAuthors(authorDTOList);
+
+            CategoryDTO categoryDTO = new CategoryDTO();
+            categoryDTO.setCategoryId(bookModel.getCategoryModel().getCategoryId());
+            categoryDTO.setName(bookModel.getCategoryModel().getName());
+            bookDTO.setCategory(categoryDTO);
 
             bookDTOList.add(bookDTO);
         });
@@ -59,6 +66,7 @@ public class BookServiceImpl implements BookService {
         BookModel bookModel = bookRepository.findById(id).orElse(null);
         if (bookModel == null) return null;
 
+        List<AuthorDTO> authorDTOList = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         // convert BookModel to BookDTO
@@ -69,6 +77,22 @@ public class BookServiceImpl implements BookService {
         bookDTO.setPublisher(bookModel.getPublisher());
         bookDTO.setPublicationDate(LocalDate.parse(bookModel.getPublicationDate(), formatter));
         bookDTO.setNumberOfPages(bookModel.getNumberOfPages());
+
+        bookModel.getAuthorModel().forEach(authorModel -> {
+            AuthorDTO authorDTO = new AuthorDTO();
+            authorDTO.setAuthorId(authorModel.getAuthorId());
+            authorDTO.setName(authorModel.getName());
+            authorDTO.setBirthYear(authorModel.getBirthYear());
+            authorDTO.setNationality(authorModel.getNationality());
+
+            authorDTOList.add(authorDTO);
+        });
+        bookDTO.setAuthors(authorDTOList);
+
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setCategoryId(bookModel.getCategoryModel().getCategoryId());
+        categoryDTO.setName(bookModel.getCategoryModel().getName());
+        bookDTO.setCategory(categoryDTO);
 
         return bookDTO;
     }

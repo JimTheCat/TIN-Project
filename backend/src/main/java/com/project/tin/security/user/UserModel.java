@@ -1,5 +1,6 @@
 package com.project.tin.security.user;
 
+import com.project.tin.model.BookBorrowModel;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,10 +13,10 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "User")
-public class UserDTO implements UserDetails {
+public class UserModel implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long user_id;
+    private long userId;
     private String username;
     private String password;
     private String first_name;
@@ -24,6 +25,8 @@ public class UserDTO implements UserDetails {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role_id;
+    @OneToMany(mappedBy = "userModel")
+    private List<BookBorrowModel> bookBorrowModel;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 @Entity
-@Transactional
 @Table(name = "Role")
 public class Role {
     @Id

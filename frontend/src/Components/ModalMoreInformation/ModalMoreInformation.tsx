@@ -16,6 +16,7 @@ export const ModalMoreInformation = ({bookId}: {bookId: number}) => {
         if (response && response.status === 200) {
           setBook(response.data)
         }
+        console.log(response)
       });
 
       // GetAuthorsByBookIdService(bookId).then((response) => {
@@ -33,6 +34,14 @@ export const ModalMoreInformation = ({bookId}: {bookId: number}) => {
             <Text>Publisher: {book.publisher}</Text>
             <Text>Publication date: {book.publicationDate.toString()}</Text>
             <Text>Number of pages: {book.numberOfPages}</Text>
+            {book.authors.length === 0 &&
+            <Text>No authors</Text>
+            }
+            {book.authors.length > 0 &&
+            <Group position={"apart"}>
+              <Text>Authors: {book.authors.map((author) => author.name).join(", ")}</Text>
+            </Group>
+            }
         </Stack>
         }
       </Modal>

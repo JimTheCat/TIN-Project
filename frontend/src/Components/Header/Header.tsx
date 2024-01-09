@@ -3,6 +3,7 @@ import {ModalLogin} from "../ModalLogin";
 import {ModalRegister} from "../ModalRegister";
 import {useAuthUser, useIsAuthenticated, useSignOut} from "react-auth-kit";
 import {useTranslation} from "react-i18next";
+import {ModalUserDetails} from "../ModalUserDetails";
 
 export const Header = () => {
   const {t} = useTranslation("header")
@@ -15,9 +16,11 @@ export const Header = () => {
     <Group position={"apart"} p={"xl"} mx={10}>
       <Title order={1}>{t('left.title')}</Title>
 
+      {/*TODO: Check if user have valid token if not then log out*/}
       {isAuthenticated() &&
           <Group align={"center"}>
               <Text>{t('right.text')} {authUser()!.name}!</Text>
+              <ModalUserDetails />
               <Button
                   onClick={() => {
                     signOut();

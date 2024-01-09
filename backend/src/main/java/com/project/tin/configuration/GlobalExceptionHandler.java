@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    //TODO: for better exception handling, create a DTO response class
+    //TODO: for better exception handling, create a DTO error response class
     @ExceptionHandler(CustomAuthenticationException.class)
     public ResponseEntity<Object> handleCustomAuthenticationException(CustomAuthenticationException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);

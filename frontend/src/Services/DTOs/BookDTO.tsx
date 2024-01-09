@@ -1,3 +1,6 @@
+import {AuthorDTO} from "./AuthorDTO";
+import {CategoryDTO} from "./CategoryDTO";
+
 export type BookDTO = {
   bookId: number;
   name: string;
@@ -5,4 +8,6 @@ export type BookDTO = {
   publisher: string;
   publicationDate: Date | string;
   numberOfPages: number;
+  authors: AuthorDTO[];
+  category: CategoryDTO;
 }

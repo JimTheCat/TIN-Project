@@ -1,0 +1,15 @@
+{
+	"button": "Zaloguj się",
+	"modal": {
+		"password": {
+			"label": "Hasło",
+			"placeholder": "Wprowadź hasło"
+		},
+		"submit": "Wyślij",
+		"title": "Formularz logowania",
+		"username": {
+			"label": "Nazwa użytkownika",
+			"placeholder": "Wprowadź nazwę użytkownika"
+		}
+	}
+}

@@ -3,7 +3,9 @@ package com.project.tin.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.awt.print.Book;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -11,17 +13,20 @@ import java.util.List;
 public class AuthorModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long AuthorId;
-    @Column(name = "Name")
-    private String Name;
-    @Column(name = "BirthYear")
-    private String BirthYear;
-    @Column(name = "Nationality")
-    private String Nationality;
+    @Column(name = "author_id")
+    private Long authorId;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "birth_year")
+    private Integer birthYear;
+    @Column(name = "nationality")
+    private String nationality;
+
     @ManyToMany
     @JoinTable(
-            name = "BookAuthors",
-            joinColumns = @JoinColumn(name = "AuthorId"),
-            inverseJoinColumns = @JoinColumn(name = "BookId"))
-    private List<BookModel> Books;
+            name = "Book_Author",
+            joinColumns = @JoinColumn(name = "author_id_fk"),
+            inverseJoinColumns = @JoinColumn(name = "book_id_fk"))
+    private List<BookModel> bookModel;
+
 }

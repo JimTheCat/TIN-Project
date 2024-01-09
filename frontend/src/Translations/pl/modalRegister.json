@@ -1,0 +1,28 @@
+{
+	"button": "Rejestracja",
+	"modal": {
+		"email": {
+			"error": "Niepoprawny format e-maila",
+			"label": "E-mail",
+			"placeholder": "Wprowadź e-mail"
+		},
+		"first": {
+			"label": "Imię",
+			"placeholder": "Wprowadź imię"
+		},
+		"last": {
+			"label": "Nazwisko",
+			"placeholder": "Wprowadź nazwisko"
+		},
+		"password": {
+			"label": "Hasło",
+			"placeholder": "Wprowadź hasło"
+		},
+		"submit": "Wyślij",
+		"title": "Formularz rejestracyjny",
+		"username": {
+			"label": "Nazwa użytkownika",
+			"placeholder": "Wprowadź nazwę użytkownika"
+		}
+	}
+}

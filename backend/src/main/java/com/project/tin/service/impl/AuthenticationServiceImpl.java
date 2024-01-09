@@ -5,14 +5,13 @@ import com.project.tin.dto.AuthenticationResponse;
 import com.project.tin.dto.RegisterRequest;
 import com.project.tin.exception.CustomAuthenticationException;
 import com.project.tin.repository.RoleRepository;
-import com.project.tin.security.user.UserDTO;
+import com.project.tin.security.user.UserModel;
 import com.project.tin.security.user.UserRepository;
 import com.project.tin.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new CustomAuthenticationException("User with that username already exists");
         }
 
-        UserDTO user = new UserDTO();
+        UserModel user = new UserModel();
         user.setUsername(registerRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setFirst_name(registerRequest.getFirstName());
@@ -53,7 +52,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
-        UserDTO user = userRepository.findByUsername(authenticationRequest.getUsername())
+        UserModel user = userRepository.findByUsername(authenticationRequest.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         try {

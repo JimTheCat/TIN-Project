@@ -1,0 +1,28 @@
+{
+	"button": "Register",
+	"modal": {
+		"email": {
+			"error": "Invalid email",
+			"label": "Email",
+			"placeholder": "Enter your email"
+		},
+		"first": {
+			"label": "First name",
+			"placeholder": "Enter your first name"
+		},
+		"last": {
+			"label": "Last name",
+			"placeholder": "Enter your last name"
+		},
+		"password": {
+			"label": "Password",
+			"placeholder": "Enter your password"
+		},
+		"submit": "Submit",
+		"title": "Register form",
+		"username": {
+			"label": "Username",
+			"placeholder": "Enter your username"
+		}
+	}
+}
