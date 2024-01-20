@@ -11,4 +11,7 @@ public interface BookService {
     List<BookDTO> getAllBooks();
 
     BookDTO getBookById(Long id);
+
+    List<BookDTO> getAllBooksNotBorrowed();
+    Object addBook(BookDTO bookDTO);
 }

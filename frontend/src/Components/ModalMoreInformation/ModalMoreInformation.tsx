@@ -18,8 +18,6 @@ export const ModalMoreInformation = ({bookId}: {bookId: number}) => {
         }
         console.log(response)
       });
-
-      // GetAuthorsByBookIdService(bookId).then((response) => {
     }
   }, [opened])
 
@@ -34,6 +32,7 @@ export const ModalMoreInformation = ({bookId}: {bookId: number}) => {
             <Text>Publisher: {book.publisher}</Text>
             <Text>Publication date: {book.publicationDate.toString()}</Text>
             <Text>Number of pages: {book.numberOfPages}</Text>
+            <Text>Category: {book.category.name}</Text>
             {book.authors.length === 0 &&
             <Text>No authors</Text>
             }

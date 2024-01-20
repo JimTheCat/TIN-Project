@@ -27,6 +27,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/api/auth/**")
                         .permitAll()
+                        .requestMatchers("/api/book/**", "/api/authors/**")
+                        .hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/api/admin/**")
+                        .hasAuthority("ADMIN")
                         .anyRequest()
                         .authenticated()
                 )

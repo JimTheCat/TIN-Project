@@ -3,9 +3,12 @@ package com.project.tin.service.impl;
 import com.project.tin.dto.AuthorDTO;
 import com.project.tin.dto.BookDTO;
 import com.project.tin.dto.CategoryDTO;
+import com.project.tin.model.AuthorModel;
 import com.project.tin.model.BookModel;
 import com.project.tin.repository.BookRepository;
+import com.project.tin.repository.CategoryRepository;
 import com.project.tin.service.BookService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,9 +19,11 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -95,5 +100,33 @@ public class BookServiceImpl implements BookService {
         bookDTO.setCategory(categoryDTO);
 
         return bookDTO;
+    }
+
+    @Override
+    public List<BookDTO> getAllBooksNotBorrowed() {
+        List<BookModel> bookRepositoryAll = bookRepository.findAll();
+        ModelMapper modelMapper = new ModelMapper();
+
+        bookRepositoryAll
+                .removeIf(bookModel -> bookModel.getBookBorrowModel().stream().anyMatch(bookBorrowModel -> !bookBorrowModel.getIsReturned()));
+
+        return bookRepositoryAll.stream().map(post -> modelMapper.map(post, BookDTO.class)).toList();
+    }
+
+    @Override
+    public Object addBook(BookDTO bookDTO) {
+        BookModel bookModel = new BookModel();
+        ModelMapper modelMapper = new ModelMapper();
+        List<AuthorModel> authorModelList = new ArrayList<>();
+        authorModelList.addAll(bookDTO.getAuthors().stream().map(authorDTO -> modelMapper.map(authorDTO, AuthorModel.class)).toList());
+
+        bookModel = modelMapper.map(bookDTO, BookModel.class);
+
+        bookModel.setCategoryModel(categoryRepository.findById(bookDTO.getCategory().getCategoryId()).orElse(null));
+        bookModel.setAuthorModel(authorModelList);
+
+        bookRepository.save(bookModel);
+
+        return "Book added successfully";
     }
 }

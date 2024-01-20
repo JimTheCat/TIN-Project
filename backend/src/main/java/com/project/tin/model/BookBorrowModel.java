@@ -11,7 +11,7 @@ public class BookBorrowModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "borrow_id")
-    private Long borrowId;
+    private long borrowId;
 
     @Column(name = "borrow_date")
     private String borrowDate;

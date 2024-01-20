@@ -4,3 +4,9 @@ export type AuthorDTO = {
   birthYear: number;
   nationality: string;
 }
+
+export type NewAuthorDTO = {
+  name: string;
+  birthYear: number;
+  nationality: string;
+}

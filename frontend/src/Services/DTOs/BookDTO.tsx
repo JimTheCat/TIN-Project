@@ -11,3 +11,13 @@ export type BookDTO = {
   authors: AuthorDTO[];
   category: CategoryDTO;
 }
+
+export type NewBookDTO = {
+  name: string;
+  description: string;
+  publisher: string;
+  publicationDate: string;
+  numberOfPages: number;
+  authors: AuthorDTO[];
+  category: CategoryDTO;
+}

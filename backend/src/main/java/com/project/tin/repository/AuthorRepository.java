@@ -1,12 +1,9 @@
 package com.project.tin.repository;
 
-import com.project.tin.model.BookModel;
+import com.project.tin.model.AuthorModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface BookRepository extends JpaRepository<BookModel, Long> {
-//    List<BookModel> get;
+public interface AuthorRepository extends JpaRepository<AuthorModel, Long> {
 }

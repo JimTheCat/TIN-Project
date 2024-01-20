@@ -3,21 +3,19 @@ package com.project.tin.controller;
 import com.project.tin.dto.BookDTO;
 import com.project.tin.dto.BookBorrowDTO;
 import com.project.tin.service.BookBorrowService;
-import com.project.tin.service.impl.BookServiceImpl;
+import com.project.tin.service.BookService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
-    private final BookServiceImpl bookService;
+    private final BookService bookService;
     private final BookBorrowService bookBorrowService;
 
-    public BookController(BookServiceImpl bookService, BookBorrowService bookBorrowService) {
+    public BookController(BookService bookService, BookBorrowService bookBorrowService) {
         this.bookService = bookService;
         this.bookBorrowService = bookBorrowService;
     }
@@ -36,5 +34,30 @@ public class BookController {
     @GetMapping(value = "/getBorrowedBooksByUserId", params = "userId")
     public ResponseEntity<List<BookBorrowDTO>> getBorrowedBooksByUserId(String userId) {
         return ResponseEntity.ok(bookBorrowService.getBorrowedBooksByUserId(userId));
+    }
+
+    @PutMapping(value = "/borrowBook", params = "borrowId")
+    public ResponseEntity<Object> returnBook(long borrowId) {
+        return ResponseEntity.ok(bookBorrowService.returnBook(borrowId));
+    }
+
+    @PutMapping(value = "/updateRating", params = {"borrowId", "rating"})
+    public ResponseEntity<Object> updateRating(long borrowId, int rating) {
+        return ResponseEntity.ok(bookBorrowService.updateRating(borrowId, rating));
+    }
+
+    @GetMapping(value = "/getAllBooksNotBorrowed")
+    public ResponseEntity<List<BookDTO>> getAllBooksNotBorrowed() {
+        return ResponseEntity.ok(bookService.getAllBooksNotBorrowed());
+    }
+
+    @PostMapping(value = "/borrowBook", params = {"bookId", "userId", "amountOfDays"})
+    public ResponseEntity<Object> borrowBook(long bookId, String userId, int amountOfDays) {
+        return ResponseEntity.ok(bookBorrowService.borrowBook(bookId, userId, amountOfDays));
+    }
+
+    @PostMapping(value = "/addBook")
+    public ResponseEntity<Object> addBook(@RequestBody BookDTO bookDTO) {
+        return ResponseEntity.ok(bookService.addBook(bookDTO));
     }
 }
