@@ -1,0 +1,22 @@
+{
+  "button": "Wypożycz",
+  "modal": {
+    "title": "Wypożycz książkę",
+    "name": "Tytuł",
+    "description": "Opis",
+    "category": "Kategoria",
+    "authors": {
+      "none": "Brak autorów",
+      "filled": "Autorzy"
+    },
+    "dueDate": {
+      "label": "Data zwrotu",
+      "placeholder": "Wybierz datę",
+      "description": "Na ile dni chcesz wypożyczyć książkę?"
+    },
+    "button": {
+      "cancel": "Anuluj",
+      "confirm": "Potwierdź"
+    }
+  }
+}

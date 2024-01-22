@@ -25,7 +25,7 @@ export const ModalAddBook = () => {
   const [categories, setCategories] = useState<CategoryDTO[] | null>(null);
   const [originalAuthors, setOriginalAuthors] = useState<AuthorDTO[] | null>(null);
   const [authors, setAuthors] = useState<any>(null);
-  const {t} = useTranslation("modalAuthor");
+  const {t} = useTranslation("modalAddBook");
 
   const form = useForm({
     initialValues: {
@@ -39,8 +39,8 @@ export const ModalAddBook = () => {
     } as BooksModel,
 
     validate: {
-      publicationDate: (value) => (/^\d{4}-\d{2}-\d{2}$/.test(value) ? null : 'Invalid date format. Use YYYY-MM-DD'),
-      authors: (value) => (value.length > 0 ? null : 'Select at least one author'),
+      publicationDate: (value) => (/^\d{4}-\d{2}-\d{2}$/.test(value) ? null : t('modal.publicationDate.error')), // 'Invalid date format. Use YYYY-MM-DD'
+      authors: (value) => (value.length > 0 ? null : t('modal.authors.error')), // 'Select at least one author'
     }
   });
 
@@ -73,8 +73,6 @@ export const ModalAddBook = () => {
     <>
       <Modal opened={opened} onClose={close} title={t('modal.title')} centered>
         <form onSubmit={form.onSubmit((values) => {
-          console.log(values)
-          // TODO: Add service to add books
           if (!categories || !originalAuthors) {
             return;
           }
@@ -97,7 +95,6 @@ export const ModalAddBook = () => {
             authors: filteredAuthors as AuthorDTO[],
             category: CategoryDTO as CategoryDTO,
           }
-          console.log(newBookDTO)
 
           AddBookService(newBookDTO).then((value) => {
             if (value && value.status === 200) {
@@ -170,7 +167,7 @@ export const ModalAddBook = () => {
         </form>
       </Modal>
 
-      <Button onClick={open} variant={"outline"}>Dodaj książke</Button>
+      <Button onClick={open} variant={"outline"}>{t('button')}</Button>
     </>
   );
 }

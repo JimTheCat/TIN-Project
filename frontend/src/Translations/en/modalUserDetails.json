@@ -1,15 +1,9 @@
 {
-	"button": "Log in",
+	"button": "Borrowed Books",
 	"modal": {
-		"password": {
-			"label": "Password",
-			"placeholder": "Enter your password"
-		},
-		"submit": "Submit",
-		"title": "Log in form",
-		"username": {
-			"label": "Username",
-			"placeholder": "Enter your username"
-		}
+		"title": "Borrowed Books",
+		"borrowDate": "Borrow Date",
+		"dueDate": "Return Date",
+		"button": "Return"
 	}
 }

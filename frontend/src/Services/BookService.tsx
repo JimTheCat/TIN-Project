@@ -101,3 +101,26 @@ export const AddBookService = async (book: NewBookDTO) => {
     console.error(error);
   }
 }
+
+export const DeleteBookByIdService = async (bookId: number) => {
+  try {
+    return await axios.delete<BookDTO> ('/api/book/deleteBookById', {
+      params: {
+        bookId: bookId
+      },
+      withCredentials: true,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const UpdateBookService = async (book: BookDTO) => {
+  try {
+    return await axios.put<BookDTO> ('/api/book/updateBook', book, {
+      withCredentials: true,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}

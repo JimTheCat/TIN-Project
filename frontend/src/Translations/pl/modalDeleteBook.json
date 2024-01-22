@@ -1,0 +1,10 @@
+{
+  "modal": {
+    "title": "Usuwanie książki",
+    "text": "Czy jesteś pewien że chcesz usunąć książkę",
+    "button": {
+      "cancel": "Anuluj",
+      "delete": "Usuń"
+    }
+  }
+}

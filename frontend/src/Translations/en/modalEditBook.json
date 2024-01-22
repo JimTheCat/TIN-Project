@@ -1,0 +1,36 @@
+{
+  "modal": {
+    "title": "Editing book",
+    "submit": "Save",
+    "name": {
+      "label": "Title",
+      "placeholder": "Enter title"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Enter description"
+    },
+    "publisher": {
+      "label": "Publisher",
+      "placeholder": "Enter publisher"
+    },
+    "publicationDate": {
+      "label": "Publication date",
+      "placeholder": "Enter publication date",
+      "error": "Invalid date format. Use YYYY-MM-DD"
+    },
+    "numberOfPages": {
+      "label": "Number of pages",
+      "placeholder": "Enter number of pages"
+    },
+    "category": {
+      "label": "Category",
+      "placeholder": "Enter category"
+    },
+    "authors": {
+      "label": "Authors",
+      "placeholder": "Enter authors",
+      "error": "Select at least one author"
+    }
+  }
+}

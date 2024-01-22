@@ -55,7 +55,7 @@ export const ModalUserDetails = (props: ModalUserDetailsProps) => {
                     <Button onClick={() => {
                       props.triggerComponent(borrow.borrowId);
                       returnBook(borrow.borrowId);
-                    }}>Click me!</Button>
+                    }}>{t('modal.button')}</Button>
                   </Stack>
                 </Card>
               );

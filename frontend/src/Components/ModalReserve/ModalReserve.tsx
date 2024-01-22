@@ -4,12 +4,14 @@ import {useEffect, useState} from "react";
 import {BorrowBookService, GetBookByIdService} from "../../Services/BookService";
 import {BookDTO} from "../../Services/DTOs/BookDTO";
 import {useAuthUser} from "react-auth-kit";
+import {useTranslation} from "react-i18next";
 
 export const ModalReserve = ({bookId}: {bookId: number}) => {
   const [opened, {open, close}] = useDisclosure(false);
   const [book, setBook] = useState<BookDTO | null>(null);
   const [days, setDays] = useState<number | ''>(1);
   const authUser = useAuthUser();
+  const {t} = useTranslation('modalReserve');
 
   useEffect(() => {
     // logic here
@@ -33,25 +35,25 @@ export const ModalReserve = ({bookId}: {bookId: number}) => {
 
   return(
     <>
-      <Modal opened={opened} onClose={close} title="Book details" centered sx={{overflow: "auto"}}>
+      <Modal opened={opened} onClose={close} title={t('modal.title')} centered sx={{overflow: "auto"}}>
         { book === null && <Loader variant="dots" />}
         {book &&
           <Stack m={"md"}>
-            <Text>Title: {book.name}</Text>
-            <Text>Description: {book.description}</Text>
-            <Text>Category: {book.category.name}</Text>
+            <Text>{t('modal.name')}: {book.name}</Text>
+            <Text>{t('modal.description')}: {book.description}</Text>
+            <Text>{t('modal.category')}: {book.category.name}</Text>
             {book.authors.length === 0 &&
-              <Text>No authors</Text>
+              <Text>{t('modal.authors.none')}</Text>
             }
             {book.authors.length > 0 &&
               <Group position={"apart"}>
-                <Text>Authors: {book.authors.map((author) => author.name).join(", ")}</Text>
+                <Text>{t('modal.authors.filled')}: {book.authors.map((author) => author.name).join(", ")}</Text>
               </Group>
             }
             <NumberInput
-                label="Due date"
-                description={"How many days you want to borrow this book?"}
-                placeholder="Due date"
+                label={t('modal.dueDate.label')}
+                description={t('modal.dueDate.description')}
+                placeholder={t('modal.dueDate.placeholder')}
                 max={120}
                 min={1}
                 value={days}
@@ -61,12 +63,12 @@ export const ModalReserve = ({bookId}: {bookId: number}) => {
         }
 
         <Group position={"apart"}>
-          <Button onClick={close} color={'red'}>Cancel</Button>
-          <Button onClick={handleConfirm} color={'green'}>Confirm</Button>
+          <Button onClick={close} color={'red'}>{t('modal.button.cancel')}</Button>
+          <Button onClick={handleConfirm} color={'green'}>{t('modal.button.confirm')}</Button>
         </Group>
       </Modal>
 
-      <Button onClick={open}>Reserve</Button>
+      <Button onClick={open}>{t('button')}</Button>
     </>
   );
 }

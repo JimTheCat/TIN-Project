@@ -1,0 +1,19 @@
+{
+  "button": "Dodaj autora",
+  "modal": {
+    "title": "Dodawanie autora",
+    "name": {
+      "label": "Imię",
+      "placeholder": "Wprowadź imię"
+    },
+    "birthYear": {
+      "label": "Rok urodzenia",
+      "placeholder": "Wprowadź rok urodzenia"
+    },
+    "nationality": {
+      "label": "Narodowość",
+      "placeholder": "Wprowadź narodowość"
+    },
+    "submit": "Wyślij"
+  }
+}

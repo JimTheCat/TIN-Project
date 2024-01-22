@@ -1,0 +1,19 @@
+{
+  "button": "Add author",
+  "modal": {
+    "title": "Adding author",
+    "name": {
+      "label": "Name",
+      "placeholder": "Enter name"
+    },
+    "birthYear": {
+      "label": "Birth year",
+      "placeholder": "Enter birth year"
+    },
+    "nationality": {
+      "label": "Nationality",
+      "placeholder": "Enter nationality"
+    },
+    "submit": "Submit"
+  }
+}

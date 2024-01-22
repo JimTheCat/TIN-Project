@@ -129,4 +129,23 @@ public class BookServiceImpl implements BookService {
 
         return "Book added successfully";
     }
+
+    @Override
+    public Object removeBookById(long bookId) {
+        bookRepository.deleteById(bookId);
+        return "Book removed successfully";
+    }
+
+    @Override
+    public Object updateBook(BookDTO bookDTO) {
+        ModelMapper modelMapper = new ModelMapper();
+        BookModel bookModel = modelMapper.map(bookDTO, BookModel.class);
+
+        bookModel.setCategoryModel(categoryRepository.findById(bookDTO.getCategory().getCategoryId()).orElse(null));
+        bookModel.setAuthorModel(bookDTO.getAuthors().stream().map(authorDTO -> modelMapper.map(authorDTO, AuthorModel.class)).toList());
+
+        bookRepository.save(bookModel);
+
+        return "Book updated successfully";
+    }
 }

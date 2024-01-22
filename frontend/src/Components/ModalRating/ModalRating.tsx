@@ -10,6 +10,7 @@ import {
 } from "@tabler/icons-react";
 import {useEffect, useState} from "react";
 import {UpdateRatingService} from "../../Services/BookService";
+import {useTranslation} from "react-i18next";
 
 type ModalRatingProps = {
   // Props types here
@@ -20,6 +21,7 @@ type ModalRatingProps = {
 export const ModalRating = (props: ModalRatingProps) => {
   const [opened, {open, close}] = useDisclosure(true);
   const [value, setValue] = useState<number | null>(null);
+  const {t} = useTranslation("modalRating");
 
   const GetEmptyIcon = (value: number) => {
     const defaultProps = { size: rem(32), color: 'gray' };
@@ -66,20 +68,23 @@ export const ModalRating = (props: ModalRatingProps) => {
   }, [opened]);
 
   return(
-    <Modal opened={opened} onClose={() => close()} title="Rating" centered>
+    <Modal opened={opened} onClose={() => close()} title={t('title')} centered>
       <Stack align={"center"} justify={"center"}>
-        <Title order={2}>Fajna książka?</Title>
+        <Title order={2}>{t('text')}</Title>
         <Rating emptySymbol={GetEmptyIcon} fullSymbol={GetFullIcon} highlightSelectedOnly onChange={item => setValue(item)}/>
         <Button onClick={() => {
           handleSendButton(props.borrowId, value!);
           close();
-        } }>Send</Button>
+        } }>{t('button')}</Button>
       </Stack>
     </Modal>
   );
 }
 
 const handleSendButton = (borrowId: number, value: number) => {
+  //if rating is not selected just skip
+  if (value === null) return;
+
   UpdateRatingService(borrowId, value).then((response) => {
     if (response && response.status === 200) {
       console.log(response);

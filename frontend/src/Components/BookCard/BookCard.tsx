@@ -1,19 +1,22 @@
-import {ActionIcon, Button, Card, Grid, Group, Pagination, Text, Title} from "@mantine/core";
+import {Card, Grid, Group, Pagination, Title} from "@mantine/core";
 import {
   IconArrowBarToRight,
   IconArrowBarToLeft,
   IconArrowLeft,
   IconArrowRight,
-  IconGripHorizontal, IconSettings,
+  IconGripHorizontal,
 } from '@tabler/icons-react';
 import {useEffect, useState} from "react";
 import {BookDTO} from "../../Services/DTOs/BookDTO";
-import {GetAllBooksNotBorrowedService, GetAllBooksService} from "../../Services/BookService";
+import {GetAllBooksNotBorrowedService} from "../../Services/BookService";
 import {useIsAuthenticated, useAuthUser} from "react-auth-kit";
 import {ModalMoreInformation} from "../ModalMoreInformation";
 import {ModalReserve} from "../ModalReserve";
 import {ModalAuthor} from "../ModalAuthor";
 import {ModalAddBook} from "../ModalAddBook/ModalAddBook";
+import {ModalEditBook} from "../ModalEditBook";
+import {ModalDeleteBook} from "../ModalDeleteBook";
+import {useTranslation} from "react-i18next";
 
 export const BookCard = () => {
 
@@ -24,7 +27,7 @@ export const BookCard = () => {
   const isAuth = useIsAuthenticated();
   const authUser = useAuthUser();
   const [isUserAdmin, setIsUserAdmin] = useState<boolean>(authUser()!.role === "ADMIN");
-
+  const {t} = useTranslation("bookCard");
 
   useEffect(() => {
     // logic here
@@ -46,7 +49,7 @@ export const BookCard = () => {
           <Grid columns={2}>
             <Grid.Col span={2}>
               <Group position={"apart"}>
-                <Title order={3}>Dostępne książki</Title>
+                <Title order={3}>{t('title')}</Title>
                 {isUserAdmin &&
                 <Group position={"apart"}>
                     <ModalAuthor />
@@ -62,9 +65,12 @@ export const BookCard = () => {
                     <Card withBorder>
                       <Group position={"apart"}>
                         <Title order={4}>{book.name}</Title>
-                        {isUserAdmin && <ActionIcon>
-                            <IconSettings size={"1.125rem"}/>
-                        </ActionIcon>}
+                        {isUserAdmin &&
+                          <Group position={"center"}>
+                              <ModalEditBook bookId={book.bookId} />
+                              <ModalDeleteBook bookId={book.bookId} />
+                          </Group>
+                        }
                       </Group>
                       <Title order={6}>{book.description}</Title>
                       <Group position={"apart"} mt={"sm"}>

@@ -1,8 +1,6 @@
-import {Button, Modal, PasswordInput, Stack, TextInput} from "@mantine/core";
-import LogIn from "../../Services/AuthService";
+import {Button, Modal, Stack, TextInput} from "@mantine/core";
 import {useDisclosure} from "@mantine/hooks";
 import {useForm} from "@mantine/form";
-import {LogInDTO} from "../../Services/DTOs/AuthDTO";
 import {useTranslation} from "react-i18next";
 import {NewAuthorDTO} from "../../Services/DTOs/AuthorDTO";
 import {AddAuthorService} from "../../Services/AuthorService";
@@ -59,7 +57,7 @@ export const ModalAuthor = () => {
         </form>
       </Modal>
 
-      <Button onClick={open} variant={"outline"}>Dodaj autora</Button>
+      <Button onClick={open} variant={"outline"}>{t('button')}</Button>
     </>
   );
 }

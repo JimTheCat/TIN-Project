@@ -1,0 +1,16 @@
+{
+  "button": "Więcej informacji",
+  "modal": {
+    "title": "Informacje o książce",
+    "name": "Tytuł",
+    "description": "Opis",
+    "publisher": "Wydawca",
+    "publicationDate": "Data publikacji",
+    "numberOfPages": "Liczba stron",
+    "category": "Kategoria",
+    "authors": {
+      "none": "Brak autorów",
+      "filled": "Autorzy"
+    }
+  }
+}

@@ -60,4 +60,14 @@ public class BookController {
     public ResponseEntity<Object> addBook(@RequestBody BookDTO bookDTO) {
         return ResponseEntity.ok(bookService.addBook(bookDTO));
     }
+
+    @DeleteMapping(value = "/deleteBookById", params = "bookId")
+    public ResponseEntity<Object> removeBookById(long bookId) {
+        return ResponseEntity.ok(bookService.removeBookById(bookId));
+    }
+
+    @PutMapping(value = "/updateBook")
+    public ResponseEntity<Object> updateBook(@RequestBody BookDTO bookDTO) {
+        return ResponseEntity.ok(bookService.updateBook(bookDTO));
+    }
 }

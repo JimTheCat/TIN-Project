@@ -1,15 +1,9 @@
 {
-	"button": "Zaloguj się",
+	"button": "Wypożyczone książki",
 	"modal": {
-		"password": {
-			"label": "Hasło",
-			"placeholder": "Wprowadź hasło"
-		},
-		"submit": "Wyślij",
-		"title": "Formularz logowania",
-		"username": {
-			"label": "Nazwa użytkownika",
-			"placeholder": "Wprowadź nazwę użytkownika"
-		}
+		"title": "Wypożyczone książki",
+		"borrowDate": "Data wypożyczenia",
+		"dueDate": "Data zwrotu",
+		"button": "Zwróć książkę"
 	}
 }

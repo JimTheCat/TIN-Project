@@ -1,0 +1,22 @@
+{
+  "button": "Reserve",
+  "modal": {
+    "title": "Reserve book",
+    "name": "Title",
+    "description": "Description",
+    "category": "Category",
+    "authors": {
+      "none": "No authors",
+      "filled": "Authors"
+    },
+    "dueDate": {
+      "label": "Due date",
+      "placeholder": "Select date",
+      "description": "How many days you want to borrow this book?"
+    },
+    "button": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
+  }
+}

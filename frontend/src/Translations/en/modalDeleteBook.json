@@ -1,0 +1,10 @@
+{
+  "modal": {
+    "title": "Removing book",
+    "text": "Are you sure you want to delete book",
+    "button": {
+      "cancel": "Cancel",
+      "delete": "Delete"
+    }
+  }
+}

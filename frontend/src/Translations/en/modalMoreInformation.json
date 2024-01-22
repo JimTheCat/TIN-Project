@@ -1,0 +1,16 @@
+{
+  "button": "More information",
+  "modal": {
+    "title": "More information",
+    "name": "Title",
+    "description": "Description",
+    "publisher": "Publisher",
+    "publicationDate": "Publication date",
+    "numberOfPages": "Number of pages",
+    "category": "Category",
+    "authors": {
+      "none": "No authors",
+      "filled": "Authors"
+    }
+  }
+}

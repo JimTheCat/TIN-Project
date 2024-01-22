@@ -1,0 +1,36 @@
+{
+  "modal": {
+    "title": "Edytowanie książki",
+    "submit": "Zapisz",
+    "name": {
+      "label": "Tytuł",
+      "placeholder": "Wprowadź tytuł"
+    },
+    "description": {
+      "label": "Opis",
+      "placeholder": "Wprowadź opis"
+    },
+    "publisher": {
+      "label": "Wydawca",
+      "placeholder": "Wprowadź wydawcę"
+    },
+    "publicationDate": {
+      "label": "Data publikacji",
+      "placeholder": "Wprowadź datę publikacji",
+      "error": "Wprowadź datę publikacji w formacie YYYY-MM-DD"
+    },
+    "numberOfPages": {
+      "label": "Liczba stron",
+      "placeholder": "Wprowadź liczbę stron"
+    },
+    "category": {
+      "label": "Kategoria",
+      "placeholder": "Wprowadź kategorię"
+    },
+    "authors": {
+      "label": "Autorzy",
+      "placeholder": "Wprowadź autorów",
+      "error": "Wprowadź co najmniej jednego autora"
+    }
+  }
+}
