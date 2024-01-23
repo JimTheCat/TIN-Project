@@ -56,6 +56,9 @@ public class BookController {
         return ResponseEntity.ok(bookBorrowService.borrowBook(bookId, userId, amountOfDays));
     }
 
+    /*
+        Admin methods
+    */
     @PostMapping(value = "/addBook")
     public ResponseEntity<Object> addBook(@RequestBody BookDTO bookDTO) {
         return ResponseEntity.ok(bookService.addBook(bookDTO));

@@ -7,6 +7,7 @@ import com.project.tin.repository.BookBorrowRepository;
 import com.project.tin.repository.BookRepository;
 import com.project.tin.security.user.UserRepository;
 import com.project.tin.service.BookBorrowService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,17 +17,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class BookBorrowServiceImpl implements BookBorrowService {
     private final BookBorrowRepository bookBorrowRepository;
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper = new ModelMapper();
-
-    public BookBorrowServiceImpl(BookBorrowRepository bookBorrowRepository, BookRepository bookRepository, UserRepository userRepository) {
-        this.bookBorrowRepository = bookBorrowRepository;
-        this.bookRepository = bookRepository;
-        this.userRepository = userRepository;
-    }
 
     @Override
     public List<BookBorrowDTO> getBorrowedBooksByUserId(String username) {
@@ -36,7 +32,7 @@ public class BookBorrowServiceImpl implements BookBorrowService {
                 .map(post -> modelMapper.map(post, BookBorrowDTO.class))
                 .toList();
 
-        borrowDTOList.forEach(e -> e.setUserModel(null));
+        borrowDTOList.forEach(e -> e.setUserModel(null)); // hide user details
 
         return borrowDTOList;
     }
@@ -44,8 +40,8 @@ public class BookBorrowServiceImpl implements BookBorrowService {
     @Override
     public Object returnBook(long borrowId) {
         bookBorrowRepository
-                .findByBorrowId(borrowId)
-                .setIsReturned(true);
+            .findByBorrowId(borrowId)
+            .setIsReturned(true);
 
         bookBorrowRepository.flush();
 
@@ -55,8 +51,8 @@ public class BookBorrowServiceImpl implements BookBorrowService {
     @Override
     public Object updateRating(long bookId, int rating) {
         bookBorrowRepository
-                .findByBorrowId(bookId)
-                .setRating((double) rating);
+            .findByBorrowId(bookId)
+            .setRating((double) rating);
 
         bookBorrowRepository.flush();
 

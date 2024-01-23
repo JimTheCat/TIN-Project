@@ -29,7 +29,13 @@ public class SecurityConfiguration {
                         .permitAll()
                         .requestMatchers("/api/book/**", "/api/authors/**")
                         .hasAnyAuthority("USER", "ADMIN")
-                        .requestMatchers("/api/admin/**")
+                        .requestMatchers(
+                                "/api/admin/**",
+                                "/api/book/addBook",
+                                "/api/book/deleteBookById",
+                                "/api/book/updateBook",
+                                "/api/authors"
+                        )
                         .hasAuthority("ADMIN")
                         .anyRequest()
                         .authenticated()

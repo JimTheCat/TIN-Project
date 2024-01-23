@@ -9,6 +9,7 @@ import com.project.tin.security.user.UserModel;
 import com.project.tin.security.user.UserRepository;
 import com.project.tin.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -33,20 +34,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new CustomAuthenticationException("User with that username already exists");
         }
 
-        UserModel user = new UserModel();
-        user.setUsername(registerRequest.getUsername());
+        ModelMapper modelMapper = new ModelMapper();
+        UserModel user = modelMapper.map(registerRequest, UserModel.class);
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setFirst_name(registerRequest.getFirstName());
-        user.setLast_name(registerRequest.getLastName());
-        user.setEmail(registerRequest.getEmail());
-        user.setRole_id(roleRepository.getReferenceById(1));
+        user.setRoleId(roleRepository.getReferenceById(1));
 
         userRepository.save(user);
 
         String jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
-                .role(user.getRole_id().getName())
+                .role(user.getRoleId().getName())
                 .build();
     }
 
@@ -69,7 +67,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
-                .role(user.getRole_id().getName())
+                .role(user.getRoleId().getName())
                 .build();
     }
 }

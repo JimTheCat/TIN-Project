@@ -5,19 +5,17 @@ import com.project.tin.dto.AuthorDTO;
 import com.project.tin.model.AuthorModel;
 import com.project.tin.repository.AuthorRepository;
 import com.project.tin.service.AuthorService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
-
-    public AuthorServiceImpl(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
-    }
 
     @Override
     public Object addAuthor(AddAuthorDTO authorDTO) {
